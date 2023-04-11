@@ -1,3 +1,5 @@
+# coding: utf-8
+
 from PIL import Image, ImageDraw, ImageFilter
 import argparse
 parser = argparse.ArgumentParser(description='图像高斯对比')
