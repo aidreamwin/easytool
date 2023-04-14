@@ -6,8 +6,40 @@ parser = argparse.ArgumentParser(description='图像高斯对比')
 parser.add_argument('--input','-i', type=str, default='demo.jpg', help="输入文件名")
 parser.add_argument('--radius','-r', type=int, default=5, help='高斯模糊半径，越大越模糊')
 args = parser.parse_args()
+
+
+from PIL import Image
+
+def resize_image(image_path):
+    with Image.open(image_path) as image:
+        # 获取原始图像的尺寸
+        width, height = image.size
+
+        # 如果图像已经符合尺寸要求，则直接返回
+        if width == 1280 and height == 720:
+            return image
+
+        # 计算等比例缩放后的尺寸
+        scale = max(1280/width, 720/height)
+        new_width = int(width * scale)
+        new_height = int(height * scale)
+
+        # 进行缩放
+        resized_image = image.resize((new_width, new_height))
+
+        # 裁剪缩放后的图像，使其恰好符合尺寸要求
+        left = (new_width - 1280) / 2
+        top = (new_height - 720) / 2
+        right = left + 1280
+        bottom = top + 720
+        cropped_image = resized_image.crop((left, top, right, bottom))
+
+        # 返回缩放并裁剪后的图像
+        return cropped_image
+
+
 # 打开原始图像
-img = Image.open(args.input)
+img = resize_image(args.input) # bImage.open(args.input)
 
 # 计算需要截取的区域
 w, h = img.size
