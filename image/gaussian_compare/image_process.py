@@ -10,17 +10,17 @@ args = parser.parse_args()
 
 from PIL import Image
 
-def resize_image(image_path):
+def resize_image(image_path, dst_w=1280, dst_h=720):
     with Image.open(image_path) as image:
         # 获取原始图像的尺寸
         width, height = image.size
 
         # 如果图像已经符合尺寸要求，则直接返回
-        if width == 1280 and height == 720:
+        if width == dst_w and height == dst_h:
             return image
 
         # 计算等比例缩放后的尺寸
-        scale = max(1280/width, 720/height)
+        scale = max(dst_w/width, dst_h/height)
         new_width = int(width * scale)
         new_height = int(height * scale)
 
@@ -28,10 +28,10 @@ def resize_image(image_path):
         resized_image = image.resize((new_width, new_height))
 
         # 裁剪缩放后的图像，使其恰好符合尺寸要求
-        left = (new_width - 1280) / 2
-        top = (new_height - 720) / 2
-        right = left + 1280
-        bottom = top + 720
+        left = (new_width - dst_w) / 2
+        top = (new_height - dst_h) / 2
+        right = left + dst_w
+        bottom = top + dst_h
         cropped_image = resized_image.crop((left, top, right, bottom))
 
         # 返回缩放并裁剪后的图像
