@@ -26,6 +26,3 @@ python image/gaussian_compare/image_process.py -i demo.jpg -r 5
 ```
 curl -sSL https://raw.githubusercontent.com/aidreamwin/easytool/main/image/gaussian_compare/image_process.py | python - -i demo.jpg -r 5
 ```
-
-
-
