@@ -21,4 +21,4 @@ output_image = gr.Image(label="Output Image", type="filepath")
 output_file = gr.File(label="Download Image")
 
 demo = gr.Interface(gaussianBlur, inputs=[image_input, number_input], outputs=[output_image, output_file], allow_flagging="never")
-demo.launch()
+demo.launch(server_name="0.0.0.0", server_port=28999)
